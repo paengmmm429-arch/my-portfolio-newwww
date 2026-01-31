@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ปลาหมอคางดำรสชาติเป็นยังไงน้าาา</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #9ee7ff, #0277bd);
+    overflow-x: hidden;
+}
+
+/* ===== ฉากทะเล ===== */
+.sea {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+/* ฉลาม */
+.shark {
+    position: absolute;
+    top: 30%;
+    font-size: 90px;
+    animation: sharkSwim 25s linear infinite;
+    opacity: 0.85;
+}
+
+@keyframes sharkSwim {
+    from { transform: translateX(-20vw); }
+    to { transform: translateX(120vw); }
+}
+
+/* ปลา */
+.fish {
+    position: absolute;
+    font-size: 34px;
+    animation: swim 18s linear infinite;
+}
+.fish.small { font-size: 26px; animation-duration: 22s; }
+
+@keyframes swim {
+    from { transform: translateX(110vw); }
+    to { transform: translateX(-20vw); }
+}
+
+/* สาหร่าย */
+.seaweed {
+    position: absolute;
+    bottom: 0;
+    font-size: 50px;
+    animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0%,100% { transform: rotate(0deg); }
+    50% { transform: rotate(6deg); }
+}
+
+/* ปะการัง */
+.coral {
+    position: absolute;
+    bottom: 0;
+    font-size: 48px;
+}
+
+/* ===== Header ===== */
+header {
+    text-align: center;
+    padding: 22px 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #01579b;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(6px);
+}
+
+/* ===== Tab Menu ===== */
+.tab-menu {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px;
+}
+
+.tab-menu button {
+    background: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: #0288d1;
+    font-size: 15px;
+}
+
+.tab-menu button.active {
+    background: #0288d1;
+    color: white;
+}
+
+/* ===== Content ===== */
+.tab-content {
+    display: none;
+    min-height: calc(100vh - 170px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.box {
+    background: rgba(255,255,255,0.93);
+    padding: 30px;
+    border-radius: 22px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+/* ===== Upload ===== */
+input[type="file"] {
+    display: none;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #4fc3f7;
+    color: #01579b;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button.action {
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: none;
+    background: #0288d1;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    header { font-size: 22px; }
+    .box { padding: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 🌊 ฉากทะเล -->
+<div class="sea">
+    <div class="shark">🦈</div>
+
+    <div class="fish" style="top:45%;">🐟</div>
+    <div class="fish small" style="top:60%;">🐠</div>
+
+    <div class="seaweed" style="left:10%;">🌿</div>
+    <div class="seaweed" style="left:20%;">🌿</div>
+    <div class="seaweed" style="left:80%;">🌿</div>
+
+    <div class="coral" style="left:40%;">🪸</div>
+    <div class="coral" style="left:60%;">🪸</div>
+</div>
+
+<header>
+    ปลาหมอคางดำรสชาติเป็นยังไงน้าาา 🐟
+</header>
+
+<div class="tab-menu">
+    <button class="active" onclick="openTab('home')">Home</button>
+    <button onclick="openTab('check')">Check</button>
+    <button onclick="openTab('about')">About Us</button>
+</div>
+
+<!-- ===== Home ===== -->
+<div id="home" class="tab-content" style="display:flex;">
+    <div class="box">
+        <h2>🏠 Home</h2>
+        <p>
+            ยินดีต้อนรับสู่โลกใต้ทะเล 🌊  
+            เว็บไซต์นี้ใช้ AI ช่วยจำแนกรูปปลา  
+            ในบรรยากาศสนุก ๆ มีฉลามว่ายไปมา 🦈
+        </p>
+    </div>
+</div>
+
+<!-- ===== Check ===== -->
+<div id="check" class="tab-content">
+    <div class="box">
+        <h2>🔍 Check</h2>
+        <p>อัปโหลดรูปปลาให้ AI วิเคราะห์ดูสิ!</p>
+
+        <button class="action" onclick="init()">Load Model</button>
+        <br><br>
+
+        <label for="imageUpload" class="upload-btn">เลือกภาพ</label>
+        <input id="imageUpload" type="file" accept="image/*" onchange="handleImageUpload(event)">
+
+        <br><br>
+        <div id="label-container"></div>
+    </div>
+</div>
+
+<!-- ===== About ===== -->
+<div id="about" class="tab-content">
+    <div class="box">
+        <h2>💙 About Us</h2>
+        <p>
+            เว็บไซต์ตัวอย่างสำหรับการเรียนรู้  
+            Web + AI ของนักเรียนสาย IT  
+            เน้น Responsive และความน่ารัก ✨
+        </p>
+    </div>
+</div>
+
+<!-- ===== AI ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+<script>
+function openTab(id) {
+    document.querySelectorAll(".tab-content").forEach(t => t.style.display = "none");
+    document.querySelectorAll(".tab-menu button").forEach(b => b.classList.remove("active"));
+    document.getElementById(id).style.display = "flex";
+    event.target.classList.add("active");
+}
+
+const URL = "https://teachablemachine.withgoogle.com/models/Z1doGNVkM/";
+let model;
+
+async function init() {
+    model = await tmImage.load(URL + "model.json", URL + "metadata.json");
+    document.getElementById("label-container").innerHTML = "โหลดโมเดลสำเร็จแล้ว! 🦈✨";
+}
+
+function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file || !model) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = () => predict(img);
+    };
+    reader.readAsDataURL(file);
+}
+
+async function predict(img) {
+    const prediction = await model.predict(img);
+    let best = prediction.reduce((a, b) => a.probability > b.probability ? a : b);
+
+    document.getElementById("label-container").innerHTML =
+        `ผลลัพธ์: ${best.className} (${best.probability.toFixed(2)})`;
+}
+</script>
+
+</body>
+</html>
